@@ -1,29 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>EV Charging Station Finder</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EV Charging Station Finder ⚡</title>
+
+  <style>
+    /* === Futuristic Gradient Background === */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #e0f7fa;
+      overflow: hidden;
+    }
+
+    /* === Floating animation background lights === */
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(0, 255, 170, 0.2);
+      filter: blur(100px);
+      animation: float 10s infinite ease-in-out alternate;
+    }
+
+    .glow:nth-child(1) {
+      top: -100px;
+      left: -100px;
+      background: rgba(0, 255, 170, 0.3);
+    }
+    .glow:nth-child(2) {
+      bottom: -100px;
+      right: -150px;
+      background: rgba(0, 200, 255, 0.3);
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(0px);
+      }
+      to {
+        transform: translateY(40px);
+      }
+    }
+
+    /* === Main container card === */
+    .container {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px 50px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 170, 0.1);
+      width: 400px;
+      z-index: 2;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* === Heading === */
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      color: #00ffaa;
+      text-shadow: 0 0 10px #00ffaa;
+    }
+
+    p {
+      color: #aef5f5;
+      margin-bottom: 25px;
+      font-size: 0.95em;
+    }
+
+    /* === Input fields === */
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #e0f7fa;
+      font-size: 1em;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input[type="text"]:focus, input[type="number"]:focus {
+      box-shadow: 0 0 10px #00ffaa;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* === Button === */
+    button {
+      background: linear-gradient(90deg, #00ffaa, #00bfff);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: #0a192f;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+      font-size: 1em;
+      box-shadow: 0 0 15px rgba(0, 255, 170, 0.3);
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #00bfff, #00ffaa);
+      box-shadow: 0 0 20px #00ffaa;
+    }
+
+    /* === Divider === */
+    .divider {
+      margin: 20px 0;
+      color: #7de2d1;
+      font-size: 0.9em;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      color: #aef5f5;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+  </style>
 </head>
+
 <body>
+  <div class="glow"></div>
+  <div class="glow"></div>
+
   <div class="container">
-    <h1>🔋 Electric Vehicle Charging Station Finder</h1>
-    <p>Enter your location details below to find the nearest charging stations.</p>
+    <h1>⚡ EV Charging Station Finder</h1>
+    <p>Enter your location details to find the nearest charging stations.</p>
 
-    <form action="/results" method="post">
+    <form action="/results" method="POST">
       <label>Enter Address:</label>
-      <input type="text" name="address" placeholder="e.g., Connaught Place, Delhi">
+      <input type="text" name="address" placeholder="e.g., New York, USA" />
 
-      <p style="text-align:center;">— or —</p>
+      <div class="divider">— or —</div>
 
       <label>Latitude:</label>
-      <input type="text" name="latitude" placeholder="e.g., 28.6139">
-      
+      <input type="text" name="latitude" placeholder="e.g., 28.6139" />
+
       <label>Longitude:</label>
-      <input type="text" name="longitude" placeholder="e.g., 77.2090">
+      <input type="text" name="longitude" placeholder="e.g., 77.2090" />
 
       <label>Number of nearest stations:</label>
-      <input type="number" name="k" value="5" min="1" max="20">
+      <input type="number" name="k" value="5" min="1" />
 
       <button type="submit">Find Stations</button>
     </form>

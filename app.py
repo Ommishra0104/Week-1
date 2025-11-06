@@ -1,15 +1,12 @@
-# app.py
 from flask import Flask, render_template, request
-from markupsafe import Markup
 from geopy.geocoders import Nominatim
-import folium
 from main import load_and_prepare, find_nearest
 
 app = Flask(__name__)
 
 DATA_CSV = "Electric_Vehicle_Charging_Stations.csv"
 df = load_and_prepare(DATA_CSV)
-print("DEBUG: loaded stations count:", len(df))   # helpful debug in console
+print("DEBUG: Loaded stations count:", len(df))
 
 geolocator = Nominatim(user_agent="ev_finder_app")
 
@@ -28,7 +25,7 @@ def results():
     query_lon = None
     error = None
 
-    # prefer numeric lat/lon if provided
+    # Prefer numeric lat/lon if provided
     if lat_input and lon_input:
         try:
             query_lat = float(lat_input)
@@ -36,7 +33,6 @@ def results():
         except ValueError:
             error = "Latitude/Longitude must be numeric."
     elif address:
-        # geocode
         try:
             location = geolocator.geocode(address, timeout=10)
             if location:
@@ -52,19 +48,30 @@ def results():
     if error:
         return render_template("results.html", error=error)
 
+    # Find nearest stations
     nearest = find_nearest(df, query_lat, query_lon, k=k)
 
-    # Create folium map centered on query
-    m = folium.Map(location=[query_lat, query_lon], zoom_start=13)
-    folium.Marker([query_lat, query_lon], popup="Your Location", icon=folium.Icon(color="red")).add_to(m)
+    # Prepare station data for Leaflet map
+    stations = [
+        {
+            "name": s["station_name"],
+            "address": s["street_address"],
+            "city": s["city"],
+            "lat": s["latitude"],
+            "lon": s["longitude"],
+            "distance": s["distance_km"]
+        }
+        for s in nearest
+    ]
 
-    for s in nearest:
-        popup_html = f"<b>{s['station_name']}</b><br>{s['street_address']}<br>{s['city']}<br>Distance: {s['distance_km']} km"
-        folium.Marker([s["latitude"], s["longitude"]], popup=popup_html).add_to(m)
-
-    map_html = m._repr_html_()
-    return render_template("results.html", nearest=nearest, map_html=Markup(map_html), query_lat=query_lat, query_lon=query_lon)
+    return render_template(
+        "results.html",
+        stations=stations,
+        query_lat=query_lat,
+        query_lon=query_lon,
+        error=None
+    )
 
 if __name__ == "__main__":
-    print("Starting Flask server...")
+    print("Starting Flask server on http://127.0.0.1:5000")
     app.run(debug=True)

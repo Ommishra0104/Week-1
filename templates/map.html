@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8a3f49d561cc964cf3282945d5df75d0 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_8a3f49d561cc964cf3282945d5df75d0" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_8a3f49d561cc964cf3282945d5df75d0 = L.map(
+                "map_8a3f49d561cc964cf3282945d5df75d0",
+                {
+                    center: [21.5570606, 84.1528515],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_28aff307d6ca39275dff22850874b0a3 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_28aff307d6ca39275dff22850874b0a3.addTo(map_8a3f49d561cc964cf3282945d5df75d0);
+        
+    
+            var marker_a27f63a00ccbcbc48ad3a4132cdeab37 = L.marker(
+                [21.5570606, 84.1528515],
+                {
+}
+            ).addTo(map_8a3f49d561cc964cf3282945d5df75d0);
+        
+    
+            var icon_537044729112046c84b01624af051bf6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_40fcf737fdc6f359edf21389a96d00c0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_863b9c035f8ec2ff0b0acffc13d3e9f4 = $(`<div id="html_863b9c035f8ec2ff0b0acffc13d3e9f4" style="width: 100.0%; height: 100.0%;">Your Location</div>`)[0];
+                popup_40fcf737fdc6f359edf21389a96d00c0.setContent(html_863b9c035f8ec2ff0b0acffc13d3e9f4);
+            
+        
+
+        marker_a27f63a00ccbcbc48ad3a4132cdeab37.bindPopup(popup_40fcf737fdc6f359edf21389a96d00c0)
+        ;
+
+        
+    
+    
+                marker_a27f63a00ccbcbc48ad3a4132cdeab37.setIcon(icon_537044729112046c84b01624af051bf6);
+            
+    
+            var marker_524129253c7060b3b0a8051cb8bc3485 = L.marker(
+                [41.94378281, -71.97262186000002],
+                {
+}
+            ).addTo(map_8a3f49d561cc964cf3282945d5df75d0);
+        
+    
+            var icon_b7fa4bf17afef0ce8eb30814c2c596e5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ac8909e539d1c70ba235592142ace91b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e2e26cf5a6603772afc52a8971b2c022 = $(`<div id="html_e2e26cf5a6603772afc52a8971b2c022" style="width: 100.0%; height: 100.0%;"><b>The Inn at Woodstock Hill</b><br>94 Plaine Hill Rd<br>Woodstock<br>Distance: 12539.1892 km</div>`)[0];
+                popup_ac8909e539d1c70ba235592142ace91b.setContent(html_e2e26cf5a6603772afc52a8971b2c022);
+            
+        
+
+        marker_524129253c7060b3b0a8051cb8bc3485.bindPopup(popup_ac8909e539d1c70ba235592142ace91b)
+        ;
+
+        
+    
+    
+            marker_524129253c7060b3b0a8051cb8bc3485.bindTooltip(
+                `<div>
+                     The Inn at Woodstock Hill
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_524129253c7060b3b0a8051cb8bc3485.setIcon(icon_b7fa4bf17afef0ce8eb30814c2c596e5);
+            
+    
+            var marker_a61e8cba58843eb186facd9a6fd9a318 = L.marker(
+                [41.916161, -71.90810200000001],
+                {
+}
+            ).addTo(map_8a3f49d561cc964cf3282945d5df75d0);
+        
+    
+            var icon_fd1bc2d209f3af55d79453a008eb109d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_242846a2cd5100a094860b351fa7565c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_45793712cbcf6d2b12c08fe950121cfe = $(`<div id="html_45793712cbcf6d2b12c08fe950121cfe" style="width: 100.0%; height: 100.0%;"><b>Cargill Chevrolet</b><br>23 Livery St<br>Putnam<br>Distance: 12539.8106 km</div>`)[0];
+                popup_242846a2cd5100a094860b351fa7565c.setContent(html_45793712cbcf6d2b12c08fe950121cfe);
+            
+        
+
+        marker_a61e8cba58843eb186facd9a6fd9a318.bindPopup(popup_242846a2cd5100a094860b351fa7565c)
+        ;
+
+        
+    
+    
+            marker_a61e8cba58843eb186facd9a6fd9a318.bindTooltip(
+                `<div>
+                     Cargill Chevrolet
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a61e8cba58843eb186facd9a6fd9a318.setIcon(icon_fd1bc2d209f3af55d79453a008eb109d);
+            
+    
+            var marker_fc3c97558a0ca619d3a7e3df6c1d5606 = L.marker(
+                [41.914513, -71.9098896],
+                {
+}
+            ).addTo(map_8a3f49d561cc964cf3282945d5df75d0);
+        
+    
+            var icon_0827a29a94f6949e8799c4dc231e62aa = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e6598167a0713a13800717fc92f98af8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_50413ca5509246285b813f3ef4d08507 = $(`<div id="html_50413ca5509246285b813f3ef4d08507" style="width: 100.0%; height: 100.0%;"><b>TOWN OF PUTNAM</b><br>1-73 Canal St<br>Putnam<br>Distance: 12540.0383 km</div>`)[0];
+                popup_e6598167a0713a13800717fc92f98af8.setContent(html_50413ca5509246285b813f3ef4d08507);
+            
+        
+
+        marker_fc3c97558a0ca619d3a7e3df6c1d5606.bindPopup(popup_e6598167a0713a13800717fc92f98af8)
+        ;
+
+        
+    
+    
+            marker_fc3c97558a0ca619d3a7e3df6c1d5606.bindTooltip(
+                `<div>
+                     TOWN OF PUTNAM
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fc3c97558a0ca619d3a7e3df6c1d5606.setIcon(icon_0827a29a94f6949e8799c4dc231e62aa);
+            
+    
+            var marker_1a59ef50f0122903f7143ae97dd69533 = L.marker(
+                [41.914329, -71.9105761999999],
+                {
+}
+            ).addTo(map_8a3f49d561cc964cf3282945d5df75d0);
+        
+    
+            var icon_bcf5dfdad21309fdab07dc98d4d565f6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6dde088c2405f4d29dc39ac574d4b2c2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_82261891a2d068e063a62bc99079ed2e = $(`<div id="html_82261891a2d068e063a62bc99079ed2e" style="width: 100.0%; height: 100.0%;"><b>Putnam Downtown Municipal Parking Lot</b><br>165 Kennedy Dr<br>Putnam<br>Distance: 12540.0802 km</div>`)[0];
+                popup_6dde088c2405f4d29dc39ac574d4b2c2.setContent(html_82261891a2d068e063a62bc99079ed2e);
+            
+        
+
+        marker_1a59ef50f0122903f7143ae97dd69533.bindPopup(popup_6dde088c2405f4d29dc39ac574d4b2c2)
+        ;
+
+        
+    
+    
+            marker_1a59ef50f0122903f7143ae97dd69533.bindTooltip(
+                `<div>
+                     Putnam Downtown Municipal Parking Lot
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1a59ef50f0122903f7143ae97dd69533.setIcon(icon_bcf5dfdad21309fdab07dc98d4d565f6);
+            
+    
+            var marker_07e67557096cca52d40892fbce8b3e1a = L.marker(
+                [41.984164, -72.290233],
+                {
+}
+            ).addTo(map_8a3f49d561cc964cf3282945d5df75d0);
+        
+    
+            var icon_a301cec381fc296a22ecbf8ec184b21e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bdcd1aaa5b1703d0dc23fc289fca372a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3a94cfe94792675b6f5d96028b3845b8 = $(`<div id="html_3a94cfe94792675b6f5d96028b3845b8" style="width: 100.0%; height: 100.0%;"><b>Town of Stafford - Public Works Garage</b><br>210 E St<br>Stafford Springs<br>Distance: 12545.7407 km</div>`)[0];
+                popup_bdcd1aaa5b1703d0dc23fc289fca372a.setContent(html_3a94cfe94792675b6f5d96028b3845b8);
+            
+        
+
+        marker_07e67557096cca52d40892fbce8b3e1a.bindPopup(popup_bdcd1aaa5b1703d0dc23fc289fca372a)
+        ;
+
+        
+    
+    
+            marker_07e67557096cca52d40892fbce8b3e1a.bindTooltip(
+                `<div>
+                     Town of Stafford - Public Works Garage
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_07e67557096cca52d40892fbce8b3e1a.setIcon(icon_a301cec381fc296a22ecbf8ec184b21e);
+            
+</script>
+</html>

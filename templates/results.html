@@ -1,124 +1,201 @@
-<!-- templates/results.html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Results - EV Charging Station Finder</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <div class="container">
-    <h1>Nearest Charging Stations</h1>
-
-    {% if error %}
-      <div class="error">{{ error }}</div>
-      <a href="/">Go back</a>
-    {% else %}
-      <div class="info">
-        <p>Query Location: {{ query_lat }}, {{ query_lon }}</p>
-        <a href="/">Search again</a>
-      </div>
-
-      <div class="results">
-        {% for s in nearest %}
-          <div class="station-card">
-            <h3>{{ s.station_name }}</h3>
-            <p>{{ s.street_address }} | {{ s.city }}</p>
-            <p>Distance: <strong>{{ s.distance_km }} km</strong></p>
-            <p>Level1: {{ s.level1 }} &nbsp;|&nbsp; Level2: {{ s.level2 }} &nbsp;|&nbsp; DC Fast: {{ s.dc_fast }}</p>
-          </div>
-        {% endfor %}
-      </div>
-
-      <h2>Map</h2>
-      <div class="map">
-        {{ map_html|safe }}
-      </div>
-    {% endif %}
-
-    <footer>
-      <p>Built with Python • Flask • Folium</p>
-    </footer>
-  </div>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Nearest EV Charging Stations</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearest EV Charging Stations ⚡</title>
+
+  <!-- ✅ Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+  <!-- ✅ Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    .map-container {
-      width: 100%;
-      height: 500px;
-      margin-top: 20px;
-      border-radius: 10px;
-      overflow: hidden;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #002f2f, #000);
+      color: #e4f9f5;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
     }
 
-    .stations-list {
-      margin-top: 20px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    .station {
-      border-bottom: 1px solid #eee;
-      padding: 10px 0;
-    }
-
-    .station:last-child {
-      border-bottom: none;
-    }
-
-    .error {
-      color: red;
+    h2 {
       text-align: center;
-      margin-top: 20px;
+      color: #00ffcc;
+      text-shadow: 0 0 15px rgba(0, 255, 204, 0.8);
+      margin: 30px 0 15px;
+      font-size: 1.9rem;
+      font-weight: 700;
     }
 
-    a.back-link {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #007bff;
+    #map {
+      height: 430px;
+      width: 90%;
+      margin: 0 auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 170, 0.2);
+      border: 2px solid rgba(0, 255, 153, 0.25);
     }
 
-    a.back-link:hover {
-      text-decoration: underline;
+    h3 {
+      text-align: center;
+      color: #00e6ac;
+      margin-top: 40px;
+      text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+    }
+
+    table {
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      width: 90%;
+      margin: 20px auto 50px auto;
+      background: transparent;
+    }
+
+    th {
+      background-color: #00a37a;
+      color: #fff;
+      padding: 12px;
+      text-align: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      background-color: rgba(255, 255, 255, 0.07);
+      color: #eafcf7;
+      text-align: center;
+      padding: 12px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.25s ease-in-out;
+      border-radius: 10px;
+    }
+
+    tr.station-row:hover td {
+      background-color: rgba(0, 255, 153, 0.15);
+      box-shadow: 0 0 12px rgba(0, 255, 153, 0.3);
+      transform: scale(1.01);
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      color: #66ffe0;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      #map {
+        width: 95%;
+        height: 350px;
+      }
+      table {
+        width: 95%;
+      }
+      th, td {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>⚡ Nearest EV Charging Stations</h1>
 
-    {% if error %}
-      <p class="error">{{ error }}</p>
-      <a href="/" class="back-link">← Go Back</a>
-    {% else %}
-      <div class="map-container">
-        {{ map_html|safe }}
-      </div>
+  <h2>⚡ Nearest EV Charging Stations ⚡</h2>
 
-      <div class="stations-list">
-        <h2>📍 Nearby Stations ({{ nearest|length }})</h2>
-        {% for s in nearest %}
-          <div class="station">
-            <h3>{{ s.station_name }}</h3>
-            <p>{{ s.street_address }}, {{ s.city }}</p>
-            <p><strong>Access:</strong> {{ s.access }}</p>
-            <p><strong>Distance:</strong> {{ s.distance_km }} km</p>
-          </div>
-        {% endfor %}
-      </div>
+  <div id="map"></div>
 
-      <a href="/" class="back-link">← Search Again</a>
-    {% endif %}
-  </div>
+  {% if error %}
+    <p style="color:red; text-align:center;">{{ error }}</p>
+  {% endif %}
+
+  {% if stations %}
+  <h3>Results (Nearest Stations)</h3>
+  <table>
+    <tr>
+      <th>Station Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>Distance (km)</th>
+    </tr>
+    {% for s in stations %}
+    <tr class="station-row" data-lat="{{ s.lat }}" data-lon="{{ s.lon }}">
+      <td><b>{{ s.name }}</b></td>
+      <td>{{ s.address }}</td>
+      <td>{{ s.city }}</td>
+      <td>{{ "%.2f"|format(s.distance) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  <div class="footer">⚡ Powered by Clean Energy | Drive Green 🌱</div>
+
+  <!-- ✅ Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+  <script>
+    const queryLat = {{ query_lat }};
+    const queryLon = {{ query_lon }};
+    const stations = {{ stations|tojson }};
+
+    // Initialize map
+    const map = L.map('map').setView([queryLat, queryLon], 12);
+
+    // Map tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // User location marker (green glow)
+    const userMarker = L.marker([queryLat, queryLon], {
+      icon: L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+        iconSize: [38, 38],
+        iconAnchor: [19, 37],
+        popupAnchor: [1, -34]
+      })
+    }).addTo(map)
+      .bindPopup("<b>📍 Your Location</b>")
+      .openPopup();
+
+    // EV Charging Station markers
+    const markers = {};
+    stations.forEach(s => {
+      const evIcon = L.icon({
+        iconUrl: 'https://ik.imagekit.io/byi6dyxqt/charging-station%20(1).png?updatedAt=1762454417061',
+        iconSize: [38, 38],
+        iconAnchor: [19, 37],
+        popupAnchor: [1, -34]
+      });
+
+      const m = L.marker([s.lat, s.lon], { icon: evIcon })
+        .addTo(map)
+        .bindPopup(`<b>${s.name}</b><br>${s.address}<br>${s.city}<br><b>Distance:</b> ${s.distance.toFixed(2)} km`);
+      markers[s.name] = m;
+    });
+
+    // Table row click event
+    document.querySelectorAll(".station-row").forEach(row => {
+      row.addEventListener("click", () => {
+        const lat = parseFloat(row.dataset.lat);
+        const lon = parseFloat(row.dataset.lon);
+        map.setView([lat, lon], 14, { animate: true });
+        Object.values(markers).forEach(marker => {
+          const pos = marker.getLatLng();
+          if (Math.abs(pos.lat - lat) < 1e-5 && Math.abs(pos.lng - lon) < 1e-5) {
+            marker.openPopup();
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
