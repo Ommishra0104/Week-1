@@ -1,110 +1,155 @@
-# Week-1
-Electric Vehicle Charging Station Finder
+EV Vehicle Charging Station Finder Web App
 
-The EV Charging Station Finder is a Python + Flask-based web application designed to help electric vehicle (EV) users easily locate the nearest charging stations.
-By entering either an address or latitude and longitude coordinates, users can instantly view nearby stations along with an interactive map built using Folium.
+The EV Vehicle Charging Station Finder Web App is an advanced Python + Flask-based application designed to help electric vehicle (EV) users quickly find the nearest charging stations.
+This updated version introduces an integrated AI chatbot, enhanced user interface, improved backend logic, and optimized geolocation processing for faster and more accurate results.
+
+Users can enter their address or GPS coordinates, get the nearest charging stations instantly, and see them on an interactive map generated automatically.
 
 🌍 Project Overview
 
-As the number of electric vehicles increases, the availability and accessibility of charging stations have become a growing concern.
-This project provides a simple and smart solution — a web platform that uses AI and geospatial analysis to find the nearest EV charging points based on user location.
+As EV adoption continues to grow, easy access to charging stations is essential.
+This upgraded system provides a smart, automated, and user-friendly web platform that uses:
 
-Users can:
+Geospatial analysis
 
-Input their address or GPS coordinates
+AI chatbot assistance
 
-View the top nearest charging stations
+Clean UI/UX
 
-See an interactive map showing station locations and distances
+Flask backend processing
 
-🧠 Features
+to help users locate EV charging stations effortlessly.
 
-✅ Search by address or latitude/longitude
-✅ Displays the k-nearest EV charging stations
-✅ Shows station details like:
+With the updated version, users can:
 
-Station Name
+Enter address or latitude/longitude
 
-Street Address
+View nearest charging stations
 
-City
+Access chatbot assistance
 
-Distance (in km)
+See real-time map visualization
 
-Available Charger Levels (Level 1, Level 2, DC Fast)
+Experience faster and smoother search operations
 
-✅ Interactive Folium Map visualization
-✅ Clean and responsive web interface
+🧠 New & Updated Features
+✅ AI Chatbot Integration
+
+Provides help, guidance, FAQs, and user support.
+
+✅ Improved Geolocation Search
+
+More accurate address → coordinate conversion.
+
+✅ Nearest Station Finder
+
+Displays the closest EV charging stations using optimized logic.
+
+✅ Interactive Map (Folium)
+
+Shows station details, markers, and distance.
+
+✅ Enhanced UI
+
+Modern and mobile-friendly user interface.
+
+✅ CSV Dataset Integration
+
+Reads and analyzes EV dataset for nearest station matching.
+
+✅ Error-Free Backend
+
+Strong exception handling across all processes.
 
 🛠️ Technologies Used
 Category	Tools / Libraries
 Backend	Python, Flask
 Data Handling	Pandas
-Mapping & Geolocation	Folium, Geopy
+Geolocation	Geopy
+Mapping	Folium
 Frontend	HTML, CSS
-Machine Learning (Spatial)	scikit-learn (Nearest Neighbors)
+Chatbot	Custom AI Chatbot Integration
+Environment	Python venv
+Version Control	Git & GitHub
 📁 Folder Structure
 EV_VEHICLES/
 │
-├── app.py                        # Flask main application
-├── main.py                       # Core logic for data handling and nearest station search
-├── Electric_Vehicle_Charging_Stations.csv  # Dataset file
+├── app.py                          # Flask main application (with chatbot)
+├── main.py                         # Core logic: dataset load + nearest station
+├── Electric_Vehicle_Charging_Stations.csv   # Dataset
 │
 ├── templates/
-│   ├── index.html                # Homepage - input form
-│   └── results.html              # Result and map display
+│   ├── index.html                  # Homepage UI
+│   ├── map.html                    # Map display page
+│   └── results.html                # Results display
 │
 └── static/
-    └── style.css                 # Website styling
+    ├── style.css                   # Styling
+    └── assets/                     # Images / icons
 
 ⚙️ How to Run Locally
 1️⃣ Clone the Repository
-git clone https://github.com/your-username/EV-Charging-Station-Finder.git
-cd EV-Charging-Station-Finder
+git clone https://github.com/Ommishra0104/Week-2.git
+cd Week-2
 
 2️⃣ Create a Virtual Environment
 python -m venv ev_env
-ev_env\Scripts\activate       # (Windows)
+ev_env\Scripts\activate     # For Windows
 
-3️⃣ Install Dependencies
+3️⃣ Install Required Libraries
+pip install -r requirements.txt
+
+
+Or manually:
+
 pip install flask pandas geopy folium scikit-learn
 
-4️⃣ Run the Application
+4️⃣ Start the Flask Server
 python app.py
 
 5️⃣ Open in Browser
-
-Visit → http://127.0.0.1:5000
+http://127.0.0.1:5000
 
 📊 Dataset Information
 
-The project uses a dataset named Electric_Vehicle_Charging_Stations.csv,
-which contains real-world EV charging locations with attributes like:
+Dataset used: Electric_Vehicle_Charging_Stations.csv
+
+Includes:
 
 Station Name
 
-Street Address
+Address
 
 City
 
-Latitude & Longitude (georeferenced)
+Latitude, Longitude
 
-Charger Levels (Level 1, Level 2, DC Fast)
+Charger Levels (Level 1 / Level 2 / DC Fast)
+
+Location metadata
+
+The system performs nearest-station detection using geographic distance calculations.
 
 🚀 Future Enhancements
 
-Add real-time availability of charging ports
+Real-time station availability
 
-Integrate GPS-based auto-location detection
+Google Maps or Mapbox integration
 
-Include filters (by city, distance, charger type)
+Voice-enabled chatbot
 
-Add user login to save favorite stations
+User login and personalized dashboard
 
-Deploy app online (Render / PythonAnywhere / AWS)
+Filters for distance and charger type
+
+Mobile app version
+
+Advanced EV route planning
+
+Charging price comparison
 
 👨‍💻 Author
 
 Om Mishra
 B.Tech (ECE) | Developer & Innovator
-💡 Passionate about EV technology, AI, and smart city solutions..
+🔥 Passionate about EV technology, automation, AI, and smart mobility solutions.
