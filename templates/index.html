@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EV Charging Station Finder ⚡</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
   <style>
     /* === Futuristic Gradient Background === */
@@ -144,34 +145,117 @@
       font-size: 0.9em;
     }
 
+    /* Floating chat (right side) */
+    .chat-toggle{position:fixed;right:22px;bottom:22px;z-index:120;background:linear-gradient(90deg,#2fe8c6,#00c9ff);border:none;color:#002826;padding:12px;border-radius:999px;box-shadow:0 12px 40px rgba(0,0,0,0.6);cursor:pointer;font-size:18px}
+    .chat-panel{position:fixed;right:22px;bottom:86px;width:380px;max-height:72vh;background:rgba(2,18,16,0.95);color:#cfeee6;border-radius:12px;padding:12px;box-shadow:0 24px 60px rgba(0,0,0,0.6);display:none;flex-direction:column;z-index:120}
+    .chat-messages{flex:1;overflow:auto;padding:6px;display:flex;flex-direction:column;gap:8px}
+    .chat-input{display:flex;gap:8px;margin-top:8px}
+    .chat-input textarea{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:#cfeee6;resize:none}
+    .chat-send{background:#2fe8c6;border:none;padding:8px 10px;border-radius:8px;color:#002826;font-weight:700;cursor:pointer}
   </style>
 </head>
 
 <body>
-  <div class="glow"></div>
-  <div class="glow"></div>
+  <main>
+    <div class="ev-finder-root" style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px;">
+      <div class="ev-card" style="width:100%; max-width:480px; background:rgba(7,15,13,0.7); border-radius:28px; padding:28px; box-shadow:0 20px 60px rgba(2,18,16,0.6);">
+        <div style="text-align:center; margin-bottom:18px;">
+          <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px;">
+            <div style="font-size:32px; color:#2fe8c6;">⚡</div>
+            <h1 style="margin:0; font-size:24px; color:#2fe8c6;">EV Charging Station Finder</h1>
+          </div>
+          <p style="color:#cfeee6; margin:0; font-size:14px;">Enter your location details to find the nearest charging stations.</p>
+        </div>
 
-  <div class="container">
-    <h1>⚡ EV Charging Station Finder</h1>
-    <p>Enter your location details to find the nearest charging stations.</p>
+        <form action="/results" method="POST" style="display:flex; flex-direction:column; gap:12px;">
+          <div>
+            <label style="display:block; color:#cfeee6; font-size:13px; margin-bottom:6px;">Enter Address:</label>
+            <input name="address" type="text" placeholder="e.g., New York, USA" style="width:100%; padding:12px 14px; border-radius:10px; border:none; background:rgba(255,255,255,0.03); color:#e6fff9;" />
+          </div>
 
-    <form action="/results" method="POST">
-      <label>Enter Address:</label>
-      <input type="text" name="address" placeholder="e.g., New York, USA" />
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="flex:1; height:1px; background:rgba(255,255,255,0.05);"></div>
+            <div style="color:#9feee0; font-size:12px;">or</div>
+            <div style="flex:1; height:1px; background:rgba(255,255,255,0.05);"></div>
+          </div>
 
-      <div class="divider">— or —</div>
+          <div>
+            <label style="display:block; color:#cfeee6; font-size:13px; margin-bottom:6px;">Latitude:</label>
+            <input name="latitude" type="text" placeholder="e.g., 28.6139" style="width:100%; padding:12px 14px; border-radius:10px; border:none; background:rgba(255,255,255,0.03); color:#e6fff9;" />
+          </div>
 
-      <label>Latitude:</label>
-      <input type="text" name="latitude" placeholder="e.g., 28.6139" />
+          <div>
+            <label style="display:block; color:#cfeee6; font-size:13px; margin-bottom:6px;">Longitude:</label>
+            <input name="longitude" type="text" placeholder="e.g., 77.2090" style="width:100%; padding:12px 14px; border-radius:10px; border:none; background:rgba(255,255,255,0.03); color:#e6fff9;" />
+          </div>
 
-      <label>Longitude:</label>
-      <input type="text" name="longitude" placeholder="e.g., 77.2090" />
+          <div>
+            <label style="display:block; color:#cfeee6; font-size:13px; margin-bottom:6px;">Number of nearest stations:</label>
+            <input name="k" type="number" value="5" min="1" style="width:100%; padding:12px 14px; border-radius:10px; border:none; background:rgba(255,255,255,0.03); color:#e6fff9;" />
+          </div>
 
-      <label>Number of nearest stations:</label>
-      <input type="number" name="k" value="5" min="1" />
-
-      <button type="submit">Find Stations</button>
-    </form>
+          <button type="submit" style="width:100%; padding:12px 14px; border-radius:12px; background:linear-gradient(90deg,#2fe8c6,#00c9ff); color:#002826; font-weight:700; border:none; cursor:pointer;">Find Stations</button>
+        </form>
+      </div>
+    </div>
+  </main>
+      
+    </div>
   </div>
+
+  <!-- Chat toggle & panel (home) -->
+  <style>
+    /* Chat panel sizing tweaks: wider textarea, compact send/close buttons */
+    .chat-toggle{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:999px;background:#2fe8c6;color:#002826;border:none;box-shadow:0 6px 18px rgba(0,0,0,0.25);font-size:20px;cursor:pointer}
+    .chat-panel{display:none;position:fixed;right:18px;bottom:78px;width:360px;max-width:calc(100vw - 36px);flex-direction:column;background:linear-gradient(180deg,rgba(4,20,18,0.65),rgba(3,18,16,0.75));backdrop-filter: blur(6px);padding:12px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.45);color:#cfeee6}
+    .chat-messages{overflow:auto;max-height:300px;padding-bottom:8px;margin-bottom:8px}
+    .chat-input{display:flex;gap:8px;align-items:flex-end}
+    .chat-input textarea{flex:1;min-height:48px;max-height:140px;resize:none;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;font-size:14px}
+    .chat-send{width:52px;min-width:52px;padding:8px;border-radius:8px;border:none;background:#006650;color:#e6fff9;cursor:pointer}
+    #chat-close{font-size:12px;padding:2px 4px;border-radius:6px;border:none;background:transparent;color:#cfeee6;cursor:pointer;width:28px;height:26px;display:inline-flex;align-items:center;justify-content:center}
+    /* Make sure messages area shrinks properly on small screens */
+    @media (max-width:420px){ .chat-panel{right:10px;left:10px;width:auto;bottom:72px} }
+  </style>
+
+  <button id="chat-toggle" class="chat-toggle" aria-label="Open chat">💬</button>
+  <div id="chat-panel" class="chat-panel" role="dialog" aria-hidden="true">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong>EV Assistant</strong><button id="chat-close">✖</button></div>
+    <div id="chat-messages" class="chat-messages" aria-live="polite"><div style="font-size:12px;opacity:0.8">Ask about stations, directions, or tips.</div></div>
+    <div class="chat-input"><textarea id="chat-input" rows="1" placeholder="Ask the EV Assistant..."></textarea><button id="chat-send" class="chat-send">Send</button></div>
+  </div>
+
+  <script>
+    // reuse existing askChatbot if present, otherwise fallback
+    async function askChatbotWrapper(msg){
+      if (typeof askChatbot === 'function') return askChatbot(msg);
+      try{
+        const res = await fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg})});
+        const data = await res.json();
+        if (data.candidates) return data.candidates[0].content.parts[0].text;
+        if (data.error) return '⚠️ '+(data.error.message||data.error);
+        return JSON.stringify(data);
+      }catch(e){ return '⚠️ Backend error.' }
+    }
+
+    // safely attach chat handlers only if the elements exist
+    const toggleBtn = document.getElementById('chat-toggle');
+    if (toggleBtn){
+      const panel = document.getElementById('chat-panel');
+      const closeBtn = document.getElementById('chat-close');
+      const sendBtn = document.getElementById('chat-send');
+      const input = document.getElementById('chat-input');
+      const msgs = document.getElementById('chat-messages');
+
+      function appendMsg(role, text){ const d=document.createElement('div'); d.style.padding='8px 10px'; d.style.borderRadius='10px'; d.style.maxWidth='78%'; d.style.fontSize='13px'; d.style.marginBottom='6px'; if(role==='user'){ d.style.marginLeft='auto'; d.style.background='#2fe8c6'; d.style.color='#002826'; } else { d.style.marginRight='auto'; d.style.background='rgba(255,255,255,0.03)'; d.style.color='#cfeee6'; } d.textContent=text; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; }
+
+      toggleBtn.addEventListener('click', ()=>{ if (panel.style.display==='flex'){ panel.style.display='none'; panel.setAttribute('aria-hidden','true'); } else { panel.style.display='flex'; panel.setAttribute('aria-hidden','false'); input.focus(); } });
+      closeBtn.addEventListener('click', ()=>{ panel.style.display='none'; panel.setAttribute('aria-hidden','true'); });
+
+      sendBtn.addEventListener('click', async ()=>{ const t=input.value.trim(); if(!t) return; appendMsg('user', t); input.value=''; appendMsg('bot','...'); const res = await askChatbotWrapper(t); if (msgs.lastChild && msgs.lastChild.textContent==='...') msgs.lastChild.remove(); appendMsg('bot', res); });
+      input.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendBtn.click(); } });
+    }
+  </script>
+
+
 </body>
 </html>

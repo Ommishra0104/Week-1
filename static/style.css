@@ -43,3 +43,40 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+/* Top navigation */
+.topnav{ position:fixed; top:0; left:0; right:0; height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 18px; background:linear-gradient(90deg,#052b2b,#07333a); color:#dffafa; box-shadow:0 4px 18px rgba(0,0,0,0.25); z-index:1000 }
+.topnav .brand{ font-weight:700; font-size:1.05rem }
+.topnav .navlinks a{ color:#bff8ef; text-decoration:none; margin-left:12px }
+
+/* Chat panel styles */
+#chat-root{ position:fixed; right:18px; bottom:18px; z-index:1200 }
+.chat-toggle{ width:56px; height:56px; border-radius:50%; border:none; background:#00ffaa; box-shadow:0 8px 20px rgba(0,0,0,0.3); font-size:26px; cursor:pointer }
+.chat-panel{ width:340px; max-height:68vh; background:linear-gradient(180deg,#072126,#05191a); color:#e8fff8; border-radius:12px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 12px 40px rgba(2,28,26,0.6); }
+.chat-panel.hidden{ display:none }
+.chat-header{ display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.03); font-weight:600 }
+.chat-messages{ padding:10px; overflow:auto; flex:1; display:flex; flex-direction:column; gap:8px }
+.chat-footer{ display:flex; gap:8px; padding:10px; border-top:1px solid rgba(255,255,255,0.03); }
+.chat-footer textarea{ flex:1; resize:none; padding:8px 10px; border-radius:8px; border:none; background:rgba(255,255,255,0.03); color:inherit }
+.chat-footer button{ background:#00ffaa; border:none; padding:8px 12px; border-radius:8px; cursor:pointer }
+.chat-msg{ max-width:78%; padding:8px 10px; border-radius:10px; font-size:14px }
+.chat-msg.user{ align-self:flex-end; background:linear-gradient(90deg,#00bfff,#00ffaa); color:#002226 }
+.chat-msg.bot{ align-self:flex-start; background:rgba(255,255,255,0.03) }
+
+/* page body offset for topnav */
+body{ padding-top:66px }
+
+/* Results layout */
+.results-layout{ display:flex; gap:18px; width:90%; margin: 8px auto 30px; align-items:flex-start }
+.map-column{ flex:2 }
+.results-column{ flex:1; max-height:68vh; overflow:auto }
+.station-card{ background: rgba(255,255,255,0.02); padding:12px; border-radius:10px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.03); }
+.station-card:hover{ box-shadow:0 8px 24px rgba(0,255,170,0.06); transform:translateY(-2px); }
+.station-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }
+.station-name{ color:#dffbf6 }
+.station-distance{ color:#9ff7e8; font-weight:600 }
+.station-address, .station-city{ font-size:0.95rem; color:#bff8ef }
+.station-actions{ margin-top:8px; text-align:right }
+.center-btn{ background:transparent; border:1px solid #00ffaa; color:#00f3d0; padding:6px 10px; border-radius:8px; cursor:pointer }
+
+@media (max-width:900px){ .results-layout{ flex-direction:column; width:95% } .results-column{ max-height:28vh } #map{ height:350px } }
