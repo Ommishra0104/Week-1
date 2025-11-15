@@ -89,8 +89,9 @@ EV_VEHICLES/
 
 ⚙️ How to Run Locally
 1️⃣ Clone the Repository
-git clone https://github.com/Ommishra0104/Week-2.git
-cd Week-2
+git clone https://github.com/Ommishra0104/EV-Vehicle-Charging-Station-Finder-Web-App.git
+
+cd EV-Vehicle-Charging-Station-Finder-Web-App
 
 2️⃣ Create a Virtual Environment
 python -m venv ev_env
